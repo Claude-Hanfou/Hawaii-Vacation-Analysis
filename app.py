@@ -45,13 +45,15 @@ def welcome():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/start<br/>"
-        f"/api/v1.0/start/end<br/>"
+        f"/api/v1.0/<start><br/>"
+        "Type in a single date (i.e., 2016-08-23) to see the min, max and avg temperature since that date.<br/>"
+        f"/api/v1.0/<start>/<end><br/>"
         
     )
 
 #Last 12 months ago
 prec_result = session.query(Measurement.date,Measurement.prcp).filter(Measurement.date >= last_twelve_months).order_by(Measurement.date).all()
+
 
 #Precipitation :Convert the query results to a dictionary using date as the key and prcp as the value.
 @app.route("/api/v1.0/precipitation")
@@ -67,7 +69,7 @@ def precipitation():
 
 
 #Query all stations 
-sta_result = session.query(Station.name,Station.station,Station.latitude,Station.longitude,Station.elevation).all()
+sta_result = session.query(Station.name,Station.station).all()
 
 #Return a JSON list of stations from the dataset.
 @app.route("/api/v1.0/stations")
@@ -77,25 +79,21 @@ def stations():
         sta_dict = {}
         sta_dict['Station'] = stats.station
         sta_dict['Name'] = stats.name
-        sta_dict['Latitude'] = stats.latitude
-        sta_dict['Longitude'] = stats.longitude
-        sta_dict['Elevation'] = stats.elevation
         station_list.append(sta_dict)
 
     return jsonify(station_list )
 
 #Query the dates and temperature observations of the most active station for the last year of data
-most_active = session.query(Measurement.date,Measurement.tobs,func.count(Measurement.station)).\
+most_active = session.query(Measurement.station,Measurement.date,Measurement.tobs,func.count(Measurement.station)).\
         filter(Measurement.date >= last_twelve_months).\
         group_by(Measurement.station).\
         order_by(func.count(Measurement.station).desc()).all()
 most_active
 
+
 #Last year temperature observations
-last_year = session.query(Measurement.station,Measurement.tobs,Measurement.date).\
-    filter(Measurement.date >= last_twelve_months).\
-    group_by(Measurement.date).\
-    order_by(Measurement.date).all()   
+last_year = session.query(Measurement.date, Measurement.station, Measurement.tobs).filter(Measurement.date >= last_twelve_months).all()
+   
 
 #Return a JSON list of temperature observations (TOBS) for the previous year.
 @app.route("/api/v1.0/tobs")
@@ -110,7 +108,41 @@ def tobs():
 
     return jsonify(temp_list )
 
+#Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start 
+
+@app.route("/api/v1.0/<start>")
+def startOnly(start):
+    start_date =  session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start).all()
 
 
+    start_list = []
+    for TMIN, TAVG, TMAX in start_date:
+        start_dict = {} 
+        start_dict['Min'] = TMIN
+        start_dict['Avg'] = TAVG
+        start_dict['Max'] = TMAX
+        start_list.append(start_dict)
+
+    return jsonify(start_list)    
+
+#Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range
+
+@app.route("/api/v1.0/<start>/<end>")
+def startEnd(start,end):
+    start_end_date =  session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+
+
+    start_end_list = []
+    for TMIN, TAVG, TMAX in start_end_date:
+        start_end_dict = {} 
+        start_end_dict['Min'] = TMIN
+        start_end_dict['Avg'] = TAVG
+        start_end_dict['Max'] = TMAX
+        start_end_list.append(start_end_dict)
+
+    return jsonify(start_end_list)    
+    
 if __name__ == "__main__":
     app.run(debug=True)
