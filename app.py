@@ -50,21 +50,40 @@ def welcome():
         
     )
 
+#Last 12 months ago
+prec_result = session.query(Measurement.date,Measurement.prcp).filter(Measurement.date >= last_twelve_months).order_by(Measurement.date).all()
 
 #Precipitation :Convert the query results to a dictionary using date as the key and prcp as the value.
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    #Last 12 months ago
-    prec_result = session.query(Measurement.date,Measurement.prcp).filter(Measurement.date >= last_twelve_months).order_by(Measurement.date).all()
-    return jsonify(prec_result)
+    precipitaton_data = []
+    for prc_data in prec_result:
+        prec_dict = {}
+        prec_dict['Date']= prc_data.date
+        prec_dict['Precipitation'] = prc_data.prcp
+        precipitaton_data.append(prec_dict)
+
+    return jsonify(precipitaton_data)
 
 
+#Query all stations 
+sta_result = session.query(Station.name,Station.station,Station.latitude,Station.longitude,Station.elevation).all()
 
-#Precipitation :Convert the query results to a dictionary using date as the key and prcp as the value.
+#Return a JSON list of stations from the dataset.
 @app.route("/api/v1.0/stations")
 def stations():
-    sta_result = session.query(Station.name,Station.station).all()
-    return jsonify(sta_result)
+    station_list = []
+    sta_dict = {}
+    for stats in sta_result:
+      sta_dict['Station'] = stats.station
+      sta_dict['Name'] = stats.name
+      sta_dict['Latitude'] = stats.latitude
+      sta_dict['Longitude'] = stats.longitude
+      sta_dict['Elevation'] = stats.elevation
+      station_list.append(sta_dict)
+
+
+    return jsonify(station_list )
 
 
 
