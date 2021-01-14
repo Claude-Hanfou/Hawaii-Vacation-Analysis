@@ -60,6 +60,12 @@ def precipitation():
 
 
 
+#Precipitation :Convert the query results to a dictionary using date as the key and prcp as the value.
+@app.route("/api/v1.0/stations")
+def stations():
+    sta_result = session.query(Station.name,Station.station).all()
+    return jsonify(sta_result)
+
 
 
 
