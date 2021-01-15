@@ -83,22 +83,23 @@ def stations():
     return jsonify(station_list )
 
 #Query the dates and temperature observations of the most active station for the last year of data
-most_active = session.query(Measurement.station,Measurement.date,Measurement.tobs,func.count(Measurement.station)).\
+most_active = session.query(Measurement.station,func.count(Measurement.station)).\
         filter(Measurement.date >= last_twelve_months).\
         group_by(Measurement.station).\
         order_by(func.count(Measurement.station).desc()).all()
 most_active
 
+most_active_sta = session.query(Measurement.date, Measurement.station, Measurement.tobs).\
+            filter(Measurement.date >= last_twelve_months).\
+            filter(Measurement.station == 'USC00519397').all()
+most_active_sta
 
-#Last year temperature observations
-last_year = session.query(Measurement.date, Measurement.station, Measurement.tobs).filter(Measurement.date >= last_twelve_months).all()
-   
 
-#Return a JSON list of temperature observations (TOBS) for the previous year.
+ #Return a JSON list of temperature observations (TOBS) for the previous year.
 @app.route("/api/v1.0/tobs")
 def tobs():
     temp_list = []
-    for temp in most_active:
+    for temp in most_active_sta:
         temp_dict = {}
         temp_dict['Station'] = temp.station
         temp_dict['Date'] = temp.date
