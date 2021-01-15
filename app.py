@@ -107,9 +107,9 @@ def tobs():
         temp_list.append(temp_dict)
 
     return jsonify(temp_list )
+    
 
 #Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start 
-
 @app.route("/api/v1.0/<start>")
 def startOnly(start):
     start_date =  session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
@@ -118,17 +118,14 @@ def startOnly(start):
 
     return jsonify(start_date)    
 
+
 #Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range
-
-
 @app.route("/api/v1.0/<start>/<end>")
 def startEnd(start,end):
     start_end_date =  session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
         filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
     return jsonify(start_end_date)    
-
-
 
 
 if __name__ == "__main__":
