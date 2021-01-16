@@ -84,14 +84,17 @@ def stations():
 
 #Query the dates and temperature observations of the most active station for the last year of data
 most_active = session.query(Measurement.station,func.count(Measurement.station)).\
-        filter(Measurement.date >= last_twelve_months).\
         group_by(Measurement.station).\
         order_by(func.count(Measurement.station).desc()).all()
 most_active
 
+active = most_active[0]
+act_id = active[0]
+act_id
+
 most_active_sta = session.query(Measurement.date, Measurement.station, Measurement.tobs).\
             filter(Measurement.date >= last_twelve_months).\
-            filter(Measurement.station == 'USC00519397').all()
+            filter(Measurement.station == act_id).all()
 most_active_sta
 
 
