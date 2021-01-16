@@ -119,7 +119,16 @@ def startOnly(start):
         filter(Measurement.date >= start).all()
 
 
-    return jsonify(start_date)    
+    start_list = []
+    for TMIN, TAVG, TMAX in start_date:
+        start_dict = {} 
+        start_dict['Min'] = TMIN
+        start_dict['Avg'] = TAVG
+        start_dict['Max'] = TMAX
+        start_list.append(start_dict)
+
+    return jsonify(start_list) 
+    
 
 
 #Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range
@@ -128,8 +137,16 @@ def startEnd(start,end):
     start_end_date =  session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
         filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
-    return jsonify(start_end_date)    
 
+    start_end_list = []
+    for TMIN, TAVG, TMAX in start_end_date:
+        start_end_dict = {} 
+        start_end_dict['Min'] = TMIN
+        start_end_dict['Avg'] = TAVG
+        start_end_dict['Max'] = TMAX
+        start_end_list.append(start_end_dict)
+
+    return jsonify(start_end_list)    
 
 if __name__ == "__main__":
     app.run(debug=True)
