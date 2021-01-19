@@ -1,4 +1,4 @@
-# Sqlalchemy-Analysis
+# Surf Up
 
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/surfs-up.png "Daily Normals")
@@ -15,7 +15,11 @@ A query was designed to calculate the total number of stations in the dataset an
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_2.png "Temp obs")
 
+Temperature Analysis I
+A range of dates were selected for the a potential trip from August first to August seventh of this year to check what previous year temperatures were for those matching dates. The historical data in the dataset was used to find what the the temperature has previously looked like.In the temperature analysis notebook a function called calc_temps that accepts a start date and end date in the format %Y-%m-%d returned the minimum, average, and maximum temperatures for the range of dates selected.
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_3.png "Avg Temp")
+
+
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_4.png "Daily Normals")
