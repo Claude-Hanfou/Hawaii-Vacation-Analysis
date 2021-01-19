@@ -13,6 +13,8 @@ This process involves finding the most recent date in the data setand then using
 ### Station Analysis
 A query was designed to calculate the total number of stations in the dataset and find the most active stations.Using the most active station id, calculate the lowest, highest, and average temperature. A query was designed to retrieve the last 12 months of temperature observation data (TOBS), and then filtered by the station with the highest number of observation. The last 12 months of temperature observation data for this station were ploted in the histogram below.
 
+![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_2.png "Temp obs")
+
 ### Climate App
 A Flask API based on the queries from the climate notebook.
 Available Routes:
@@ -21,9 +23,7 @@ Available Routes:
 * Return a JSON list of stations from the dataset. /api/v1.0/tobs
 * Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start date. /api/v1.0/<start>
 * Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end date range. /api/v1.0/<start>/<end>
- 
 
-![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_2.png "Temp obs")
 
 ### Temperature Analysis I
 A range of dates were selected for the a potential trip from August first to August seventh of this year to check what previous year temperatures were for those matching dates. The historical data in the dataset was used to find what the the temperature has previously looked like.In the temperature analysis notebook a function called calc_temps that accepts a start date and end date in the format %Y-%m-%d returned the minimum, average, and maximum temperatures for the range of dates selected.
