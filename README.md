@@ -3,7 +3,7 @@
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/surfs-up.png "Daily Normals")
 ## Background
-This is a deatiled analysis of holiday vacation in Honolulu, Hawaii! To help with thisntrip planning, some climate analysis on the area were done done prior to the trip.
+This is a deatiled analysis of holiday vacation in Honolulu, Hawaii! To help with this trip planning, some climate analysis on the area were done done prior to the trip.
 
 ### Precipitation Analysis
 This process involves finding the most recent date in the data setand then using this date to retrieve the last 12 months of precipitation data by querying the 12 preceding months of data. The date and prcp values were used to plot the below graph
@@ -15,11 +15,11 @@ A query was designed to calculate the total number of stations in the dataset an
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_2.png "Temp obs")
 
-Temperature Analysis I
+### Temperature Analysis I
 A range of dates were selected for the a potential trip from August first to August seventh of this year to check what previous year temperatures were for those matching dates. The historical data in the dataset was used to find what the the temperature has previously looked like.In the temperature analysis notebook a function called calc_temps that accepts a start date and end date in the format %Y-%m-%d returned the minimum, average, and maximum temperatures for the range of dates selected.
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_3.png "Avg Temp")
 
-
-
+### Temperature Analysis II
+ In the CLIMATEnotebook a function called daily_normals that accepts a day and moth in the format %m-%d returned the minimum, average, and maximum precipitation for the range of dates selected.
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_4.png "Daily Normals")
