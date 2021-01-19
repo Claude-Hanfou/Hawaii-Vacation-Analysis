@@ -16,11 +16,12 @@ A query was designed to calculate the total number of stations in the dataset an
 ### Climate App
 A Flask API based on the queries from the climate notebook.
 Available Routes:
-* Return the JSON representation for precipitation data.  /api/v1.0/precipitationReturn a JSON list of stations from the dataset.
+* Return the JSON representation for precipitation data.  /api/v1.0/precipitation
 * Return a JSON list of stations from the dataset. /api/v1.0/stations
 * Return a JSON list of stations from the dataset. /api/v1.0/tobs
 * Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start date. /api/v1.0/<start>
 * Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end date range. /api/v1.0/<start>/<end>
+ 
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_2.png "Temp obs")
 
