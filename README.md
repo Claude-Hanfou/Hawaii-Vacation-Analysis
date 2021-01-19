@@ -22,4 +22,5 @@ A range of dates were selected for the a potential trip from August first to Aug
 
 ### Temperature Analysis II
  In the CLIMATEnotebook a function called daily_normals that accepts a day and moth in the format %m-%d returned the minimum, average, and maximum precipitation for the range of dates selected.
+ 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_4.png "Daily Normals")
