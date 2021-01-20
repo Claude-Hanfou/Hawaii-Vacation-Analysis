@@ -37,8 +37,6 @@ last_twelve_months = '2016-08-23'
 # 3. Define what to do when a user hits the index route
 @app.route("/")
 def welcome():
-    latest_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
-    print(latest_date)
     return (
         f"Welcome to the Hawaii weather API!<br/>"
         f"Available Routes:<br/>"
