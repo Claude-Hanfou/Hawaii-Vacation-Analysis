@@ -6,7 +6,7 @@
 This is a detailed analysis of holiday vacation in Honolulu, Hawaii! To help with this trip planning, some climate analysis on the area were done done prior to the trip.
 
 ### Precipitation Analysis
-This process involves finding the most recent date in the data setand then using this date to retrieve the last 12 months of precipitation data by querying the 12 preceding months of data. The date and prcp values were used to plot the below graph
+This process involves finding the most recent date in the dataset and then using this date to retrieve the last 12 months of precipitation data by querying the 12 preceding months of data. The date and prcp values were used to plot the below graph
 
 ![alt text](https://github.com/Claude-Hanfou/Sqlalchemy-Analysis/blob/main/Image/figure_1.png "Precipitation")
 
